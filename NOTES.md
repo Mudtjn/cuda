@@ -25,6 +25,7 @@ __block_size__((1024, 1, 1), (2, 2, 2)) __global__ void foo();
 foo<<<dim3(8, 8, 8)>>>();
 ```
 
-
 ## Streaming multiprocessor
 1. **Physical construct**
+2. Structure: <img src="streaming-multiprocessor.png" description="images/streaming-multiprocessor.png" />
+
