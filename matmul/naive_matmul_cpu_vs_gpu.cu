@@ -6,6 +6,7 @@ using namespace std;
 #define M 256  // Number of rows in A and C
 #define K 512   // Number of columns in A and rows in B
 #define N 256  // Number of columns in B and C
+// keeping tile = warp size for better coalescing
 #define BLOCK_SIZE 32
 
 #define CHECK_CUDA(call) do { \
