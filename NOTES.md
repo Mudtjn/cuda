@@ -27,5 +27,5 @@ foo<<<dim3(8, 8, 8)>>>();
 
 ## Streaming multiprocessor
 1. **Physical construct**
-2. Structure: <img src="streaming-multiprocessor.png" description="images/streaming-multiprocessor.png" />
+2. Structure: <img src="images/streaming-multiprocessor.png" description="streaming-multiprocessor.png" />
 
