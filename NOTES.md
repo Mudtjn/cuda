@@ -27,5 +27,13 @@ foo<<<dim3(8, 8, 8)>>>();
 
 ## Streaming multiprocessor
 1. **Physical construct**
-2. Structure: <img src="images/streaming-multiprocessor.png" description="streaming-multiprocessor.png" />
+2. Structure: <img src="images/streaming-multiprocessor.png" description="streaming-multiprocessor diagram" />
 
+## Warps 
+1. Hardware scheduling units. 
+2. Warp is of 32 threads. 
+3. A thread block of `dim = 32 x 32` is optimal as it inherently considers warps. 
+4. Threads in block are linearly ordered in row major order **row-major-order**
+
+## Some useful information
+1. Nvidia graphics pipeline: <img src="images/nvidia-graphics-pipeline.png" description="graphics-pipeline" />

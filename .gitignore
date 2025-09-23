@@ -8,3 +8,5 @@
 *.cubin
 *.fatbin
 *.nsys-rep
+*.sqlite
+*.out

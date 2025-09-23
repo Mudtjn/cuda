@@ -1,6 +1,7 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 #include <time.h>
 #include <cuda_runtime.h>
+#include <cuda_fp16.h>
 using namespace std; 
 
 #define M 4096  // Number of rows in A and C
@@ -46,19 +47,19 @@ void matmul_gpu(float* A, float* B, float * C, int m, int k, int n) {
 
 __global__
 void matmul_gpu_tiling(const float* A, const float* B, float* C, int m, int k, int n) {
-    __shared__ float As[BLOCK_SIZE][BLOCK_SIZE];
-    __shared__ float Bs[BLOCK_SIZE][BLOCK_SIZE];
+    __device__ __shared__ float As[BLOCK_SIZE][BLOCK_SIZE];
+    __device__ __shared__ float Bs[BLOCK_SIZE][BLOCK_SIZE];
 
     // Conventional mapping: threadIdx.x -> column within tile, threadIdx.y -> row within tile
     int tileRow = blockIdx.y;      // which tile-row of C
     int tileCol = blockIdx.x;      // which tile-col of C
     int localRow = threadIdx.y;    // 0..BLOCK_SIZE-1
     int localCol = threadIdx.x;    // 0..BLOCK_SIZE-1
+ 
+    unsigned int row = tileRow * BLOCK_SIZE + localRow; // global row index in C
+    unsigned int col = tileCol * BLOCK_SIZE + localCol; // global col index in C
 
-    int row = tileRow * BLOCK_SIZE + localRow; // global row index in C
-    int col = tileCol * BLOCK_SIZE + localCol; // global col index in C
-
-    float sum = 0.0f;
+    float sum = 0.0f; // this is each thread memory 
 
     int numTiles = (k + BLOCK_SIZE - 1) / BLOCK_SIZE;
     for (int t = 0; t < numTiles; ++t) {
@@ -79,9 +80,8 @@ void matmul_gpu_tiling(const float* A, const float* B, float* C, int m, int k, i
         __syncthreads();
 
         // Multiply accumulate for this tile
-        // #pragma unroll
         for (int e = 0; e < BLOCK_SIZE; ++e) {
-            sum += As[localRow][e] * Bs[e][localCol];
+            sum = __fadd_rd(sum, __fmul_rd(As[localRow][e], Bs[e][localCol])); 
         }
         __syncthreads();
     }
