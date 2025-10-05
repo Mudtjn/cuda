@@ -1,4 +1,5 @@
-#include<bits/stdc++.h>
+#include<iostream>
+using namespace std;
 
 #define TRIAL_RUNS 1000
 #define THREADS_PER_BLOCK 1024

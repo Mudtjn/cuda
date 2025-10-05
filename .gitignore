@@ -2,6 +2,9 @@
 !*/
 !*.*
 *.i
+*.exe
+*.exp
+*.lib
 *.ii
 *.gpu
 *.ptx

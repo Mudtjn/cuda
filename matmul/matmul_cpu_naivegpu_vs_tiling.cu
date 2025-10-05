@@ -1,4 +1,4 @@
-#include <bits/stdc++.h>
+#include <iostream>
 #include <time.h>
 #include <cuda_runtime.h>
 #include <cuda_fp16.h>
@@ -100,11 +100,11 @@ void init_matrix(float *mat, int rows, int cols) {
 }
 
 // Function to measure execution time
-double get_time() {
-    struct timespec ts;
-    clock_gettime(CLOCK_MONOTONIC, &ts);
-    return ts.tv_sec + ts.tv_nsec * 1e-9;
-}
+// double get_time() {
+//     struct timespec ts;
+//     clock_gettime(CLOCK_MONOTONIC, &ts);
+//     return ts.tv_sec + ts.tv_nsec * 1e-9;
+// }
 
 int main() {
 
