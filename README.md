@@ -1,3 +1,9 @@
+## To compile image_convolution code
+1. Need OpenCV
+ ```bash
+nvcc -o <file-name> <file-name>.cu `pkg-config --cflags --libs opencv4`
+```
+
 ## Thread Blocks
 1. Virtual construct 
 2. Contains threads
